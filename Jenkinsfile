@@ -129,8 +129,20 @@ pipeline {
         }
       }
     }
-  }
 
+    stage('Deploy to EKS') {
+      steps {
+        sh '''
+          aws eks update-kubeconfig --region us-east-1 --name netflix-eks
+          kubectl get nodes
+          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
+          kubectl rollout status deployment/netflix --timeout=180s
+        '''
+      }
+    }
+  }
+  
   post {
     always {
       sh '''
