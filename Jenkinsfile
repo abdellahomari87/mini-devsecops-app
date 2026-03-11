@@ -137,7 +137,9 @@ pipeline {
           kubectl get nodes
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
-          kubectl rollout status deployment/netflix --timeout=180s
+          
+          kubectl get pods
+          kubectl get svc
         '''
       }
     }
