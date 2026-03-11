@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mini-devsecops-app
+  labels:
+    app: mini-devsecops-app
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: mini-devsecops-app
+
+  template:
+    metadata:
+      labels:
+        app: mini-devsecops-app
+
+    spec:
+      containers:
+        - name: mini-devsecops-app
+          image: omari87/mini-devsecops-app:latest
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 3000
